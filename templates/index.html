@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fifth year project</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/product/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css' ) }}" rel="stylesheet"
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='products.css' ) }}" rel="stylesheet"
+  </head>
+
+  <body>
+
+
+
+ <nav class="site-header  py-2">
+           <div class="container flex-md-row justify-content-between">
+      </div>
+    </nav>
+
+  <div class=" card-columns d-flex justify-content-center">
+      <div class="card">
+          <div class="card-header text-center" >
+              <strong>Track Number: 1</strong>
+          </div>
+               <video poster="{{ url_for('static', filename='poster2.png') }}"  id ='vid' muted="muted" >
+                    <source  type="video/mp4">
+               </video>
+        <div class="card-body text-center col-md-12">
+             <div class="input-group">
+              <input type="text" class="form-control"  placeholder="Current Admin Phone number: 0712345678" >
+                  <div class="input-group-append">
+                <button class="btn btn-outline-success" type="button">Change Admin Phone Number</button>
+              </div>
+            </div>
+<br>
+            <div class="input-group">
+              <textarea type="text" class="form-control" rows="2" placeholder="LCD Display : Next Train: 5:30 pm" ></textarea>
+                  <div class="input-group-append">
+                <button class="btn btn-outline-success" type="button">Publish to LCD</button>
+              </div>
+            </div>
+<br>
+            <div class="input-group justify-content-center">
+                <button type="button" class="btn btn-sm btn-active-toggle btn-outline-success" id="removeDwell">
+                    <span class="when-active">
+                        <i class=" "></i>OPEN BARRIER
+                    </span>
+                    <span class="when-inactive">
+                        <i class=""></i> CLOSE BARRIER
+                    </span>
+                </button>
+            </div>
+
+
+
+
+
+
+
+
+
+
+          </div>
+      </div>
+
+
+      <div class="card">
+                 <div class=" card-header text-center">
+                     <strong>LAST TRAIN  : AB45454</strong>
+                     <br>
+                     <strong>TIMESTAMP : 09/12/2020 16:56hr</strong>
+                     <h1>__________________________________</h1>
+                     <strong>NEXT TRAIN : GFB4574</strong>
+                     <br>
+                     <strong>EXPECTED TIMESTAMP : 09/12/2020 22:56hr</strong>
+                    
+
+
+                 </div>
+       <div class="card-body">
+        <form role = "form">
+         <table class="table table-sm text-center">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Message</th>
+      <th scope="col">Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+
+     <tr class="bg-warning">
+      <th scope="row">Warning</th>
+      <td>Obstacle in track <br> Actively monitoring.</td>
+      <td>09/12/2020 <br> 13:50hrs</td>
+
+    </tr>
+
+
+    <tr class="bg-light">
+      <th scope="row"> </th>
+      <td>Train AB45454 successfully detected.</td>
+      <td>13:53hrs</td>
+
+    </tr>
+          <tr class="bg-light">
+      <th scope="row"> </th>
+      <td>Obstacle on track cleared </td>
+      <td>13:54hrs</td>
+
+    </tr>
+    <tr class="bg-warning">
+      <th scope="row">Warning</th>
+     <td>Obstacle in track <br> Actively monitoring.</td>
+      <td>13:55hrs</td>
+      
+    </tr>
+ <tr class="bg-light">
+      <th scope="row"> </th>
+      <td>Gate Closed.</td>
+      <td>13:56hrs</td>
+      
+    </tr>
+     <tr class="bg-light">
+      <th scope="row"> </th>
+      <td>Obstacle on track cleared </td>
+      <td>13:57hrs</td>
+
+    </tr>
+    <tr class="bg-danger">
+      <th scope="row">Alert !</th>
+      <td>Obstacle in track <br> Train imminent</td>
+      <td>13:58hrs</td>
+      
+    </tr>
+       <tr class="bg-light">
+      <th scope="row"> </th>
+      <td>Train GHG57876 successfully detected.</td>
+      <td>13:59hrs</td>
+
+    </tr>
+
+
+
+
+  </tbody>
+</table>
+        </form>
+       </div>
+
+      </div>
+  </div>
+
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write(' <script src="{{ url_for('static', filename='assets/js/vendor/jquery-slim.min.js') }}">')</script>
+
+    <script src="{{ url_for('static', filename='assets/js/vendor/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/js/vendor/holder.min.js') }}"></script>
+
+
+  <script>
+    document.getElementById('vid').play();
+</script>
+
+
+  <script>
+      var barrier = 0;
+      var video = document.getElementById('vid');
+
+      console.log(("{{ url_for('static', filename='railway.mp4#t=10,20') | replace('%23', '#') | replace('%3D','=')| replace('%2C',',')}}"));
+
+      $('#removeDwell').on('click', function(){
+    $(this).toggleClass('active');
+
+    barrier = barrier+1
+    if (barrier%2 == 0) {
+        video.poster="{{ url_for('static', filename='poster.png') }}" ;
+        video.autoplay = "autoplay";
+        video.src ="{{ url_for('static', filename='railway.mp4#t=57,66') | replace('%23', '#') | replace('%3D','=')| replace('%2C',',')}}" ;
+    }
+    else {
+       video.poster="{{ url_for('static', filename='poster2.png') }}" ;
+       video.autoplay = "autoplay";
+        video.src ="{{ url_for('static', filename='railway.mp4#t=8,15') | replace('%23', '#') | replace('%3D','=')| replace('%2C',',')}}" ;
+
+    }
+
+})
+
+
+
+  </script>
+
+  </body>
+</html>
