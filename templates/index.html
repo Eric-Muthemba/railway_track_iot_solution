@@ -31,26 +31,26 @@
           <div class="card-header text-center" >
               <strong>Track Number: 1</strong>
           </div>
-               <video poster="{{ url_for('static', filename='poster2.png') }}"  id ='vid' muted="muted" >
+               <video poster="../static/railway.mp4"  id ='vid' muted="muted" >
                     <source  type="video/mp4">
                </video>
         <div class="card-body text-center col-md-12">
              <div class="input-group">
-              <input type="text" class="form-control"  placeholder="Current Admin Phone number: 0712345678" >
+              <input type="text" class="form-control"  placeholder="Current Admin Phone No.: {{credentials[0].Phone_number}}" >
                   <div class="input-group-append">
                 <button class="btn btn-outline-success" type="button">Change Admin Phone Number</button>
               </div>
             </div>
 <br>
             <div class="input-group">
-              <textarea type="text" class="form-control" rows="2" placeholder="LCD Display : Next Train: 5:30 pm" ></textarea>
+              <textarea type="text" class="form-control" rows="2" placeholder="LCD Display :{{credentials[0].Lcd_display}}" ></textarea>
                   <div class="input-group-append">
                 <button class="btn btn-outline-success" type="button">Publish to LCD</button>
               </div>
             </div>
 <br>
             <div class="input-group justify-content-center">
-                <button type="button" class="btn btn-sm btn-active-toggle btn-outline-success" id="removeDwell">
+                <button type="button" class="btn btn-sm btn-active-toggle btn-outline-success" id="barrier_button">
                     <span class="when-active">
                         <i class=" "></i>OPEN BARRIER
                     </span>
@@ -74,18 +74,6 @@
 
 
       <div class="card">
-                 <div class=" card-header text-center">
-                     <strong>LAST TRAIN  : AB45454</strong>
-                     <br>
-                     <strong>TIMESTAMP : 09/12/2020 16:56hr</strong>
-                     <h1>__________________________________</h1>
-                     <strong>NEXT TRAIN : GFB4574</strong>
-                     <br>
-                     <strong>EXPECTED TIMESTAMP : 09/12/2020 22:56hr</strong>
-                    
-
-
-                 </div>
        <div class="card-body">
         <form role = "form">
          <table class="table table-sm text-center">
@@ -98,57 +86,22 @@
   </thead>
   <tbody>
 
-     <tr class="bg-warning">
-      <th scope="row">Warning</th>
-      <td>Obstacle in track <br> Actively monitoring.</td>
-      <td>09/12/2020 <br> 13:50hrs</td>
+      {% for alert in alerts %}
 
-    </tr>
+          		{% if alert.Alert_Type == 'warning'%}
+                            <tr class="bg-warning">
+                {% elif alert.Alert_Type == 'Severe'%}
+                            <tr class="bg-danger">
+                {% else %}
+                         <tr class="bg-light">
+                {% endif %}
 
+          <th scope="row">{{alert.Alert_Type}}</th>
+          <td>{{alert.Alert_Message}}</td>
+          <td>{{alert.Alert_Timestamp}}</td>
+        </tr>
 
-    <tr class="bg-light">
-      <th scope="row"> </th>
-      <td>Train AB45454 successfully detected.</td>
-      <td>13:53hrs</td>
-
-    </tr>
-          <tr class="bg-light">
-      <th scope="row"> </th>
-      <td>Obstacle on track cleared </td>
-      <td>13:54hrs</td>
-
-    </tr>
-    <tr class="bg-warning">
-      <th scope="row">Warning</th>
-     <td>Obstacle in track <br> Actively monitoring.</td>
-      <td>13:55hrs</td>
-      
-    </tr>
- <tr class="bg-light">
-      <th scope="row"> </th>
-      <td>Gate Closed.</td>
-      <td>13:56hrs</td>
-      
-    </tr>
-     <tr class="bg-light">
-      <th scope="row"> </th>
-      <td>Obstacle on track cleared </td>
-      <td>13:57hrs</td>
-
-    </tr>
-    <tr class="bg-danger">
-      <th scope="row">Alert !</th>
-      <td>Obstacle in track <br> Train imminent</td>
-      <td>13:58hrs</td>
-      
-    </tr>
-       <tr class="bg-light">
-      <th scope="row"> </th>
-      <td>Train GHG57876 successfully detected.</td>
-      <td>13:59hrs</td>
-
-    </tr>
-
+    {% endfor %}
 
 
 
@@ -168,7 +121,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write(' <script src="{{ url_for('static', filename='assets/js/vendor/jquery-slim.min.js') }}">')</script>
 
     <script src="{{ url_for('static', filename='assets/js/vendor/popper.min.js') }}"></script>
@@ -206,9 +158,28 @@
 
 })
 
-
-
   </script>
+    <script type="text/javascript">
+      setInterval("my_function();",10000);
+
+        function my_function(){
+            window.location = location.href;
+        }
+    </script>
+ <script>
+document.getElementById("barrier_button").onclick = function() {myFunction()};
+
+function myFunction() {
+
+var request = new XMLHttpRequest()
+
+request.open('GET', 'http://f045c11635d3.ngrok.io/sms/+254726215805/OPEN', true)
+request.send()
+
+}
+</script>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
   </body>
 </html>
